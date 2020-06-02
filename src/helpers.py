@@ -1,7 +1,13 @@
 import re
+import string
 from nltk.stem import WordNetLemmatizer
 from nltk import pos_tag
 from nltk.corpus import wordnet, stopwords
+from nltk.util import ngrams
+from nltk.tokenize import word_tokenize
+
+sw = stopwords.words('english') # english stopwords list
+pt = string.punctuation # punct list
 
 def stopwords_list():
     sw = set(stopwords.words('english'))
