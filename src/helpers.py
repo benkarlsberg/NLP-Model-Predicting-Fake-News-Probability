@@ -22,18 +22,11 @@ def preprocessor(doc):
     # html tags
     doc = re.sub('<.*?>', '', doc)
     # punctuations
-    doc = re.sub('[~*.^!?\'_]*', '', doc)
+    doc = re.sub('[~*.^!?\'_,]*', '', doc)
     # numbers
     doc = re.sub(r'\w*\d\w*', '', doc).strip()
     # lemmatize
     wordnet_map = {"N": wordnet.NOUN, "V": wordnet.VERB, "J": wordnet.ADJ, "R": wordnet.ADV}
     pos_tagged_text = pos_tag(doc.split())
-    lemmatizer = WordNetLemmatizer()
-    return " ".join([lemmatizer.lemmatize(word, wordnet_map.get(pos[0], wordnet.NOUN)) for word, pos in pos_tagged_text])
-
-
-def lemmatize_words(text):
-    wordnet_map = {"N": wordnet.NOUN, "V": wordnet.VERB, "J": wordnet.ADJ, "R": wordnet.ADV}
-    pos_tagged_text = pos_tag(text.split())
     lemmatizer = WordNetLemmatizer()
     return " ".join([lemmatizer.lemmatize(word, wordnet_map.get(pos[0], wordnet.NOUN)) for word, pos in pos_tagged_text])
