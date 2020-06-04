@@ -14,7 +14,9 @@ def stopwords_list():
     new_stopwords = []
     for word in sw:
         new_stopwords.append(preprocessor(word))
-    return new_stopwords
+        # remove specified words
+    remove_list = ['reuters']
+    return new_stopwords + remove_list
 
 def preprocessor(doc):
     # lower case
@@ -22,29 +24,9 @@ def preprocessor(doc):
     # html tags
     doc = re.sub('<.*?>', '', doc)
     # punctuations
-    doc = re.sub('[~*.^!?\'_,]*', '', doc)
+    doc = re.sub('[~*.^!?\'_,&#;)(]*', '', doc)
     # numbers
     doc = re.sub(r'\w*\d\w*', '', doc).strip()
-    # lemmatize
-    wordnet_map = {"N": wordnet.NOUN, "V": wordnet.VERB, "J": wordnet.ADJ, "R": wordnet.ADV}
-    pos_tagged_text = pos_tag(doc.split())
-    lemmatizer = WordNetLemmatizer()
-    return " ".join([lemmatizer.lemmatize(word, wordnet_map.get(pos[0], wordnet.NOUN)) for word, pos in pos_tagged_text])
-
-def preprocessor2(doc):
-    # lower case
-    doc = doc.lower()
-    # html tags
-    doc = re.sub('<.*?>', '', doc)
-    # punctuations
-    doc = re.sub('[~*.^!?\'_,]*', '', doc)
-    # numbers
-    doc = re.sub(r'\w*\d\w*', '', doc).strip()
-    # remove specified words
-    remove_list = ['reuters']
-    word_list = doc.split()
-    doc = [token for token in word_list if token not in remove_list]
-    doc = ' '.join(doc)
     # lemmatize
     wordnet_map = {"N": wordnet.NOUN, "V": wordnet.VERB, "J": wordnet.ADJ, "R": wordnet.ADV}
     pos_tagged_text = pos_tag(doc.split())
