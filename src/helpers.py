@@ -15,7 +15,7 @@ def stopwords_list():
     for word in sw:
         new_stopwords.append(preprocessor(word))
         # remove specified words
-    remove_list = ['reuters']
+    remove_list = ['reuters', 'new york times']
     return new_stopwords + remove_list
 
 def preprocessor(doc):
