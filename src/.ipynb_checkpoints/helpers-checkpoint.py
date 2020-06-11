@@ -11,6 +11,16 @@ import matplotlib.pyplot as plt
 sw = stopwords.words('english') # english stopwords list
 pt = string.punctuation # punct list
 
+# LSTM Imports
+import tensorflow as tf
+from tensorflow.keras.preprocessing.text import Tokenizer
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+from tensorflow.keras.utils import to_categorical
+from tensorflow.keras.callbacks import Callback
+from tensorflow.keras.layers import Dense, Input, GlobalMaxPooling1D, LSTM
+from tensorflow.keras.layers import Conv1D, MaxPooling1D, Embedding, Dropout, Activation, Flatten
+
+
 def stopwords_list():
     sw = set(stopwords.words('english'))
     new_stopwords = []
@@ -34,6 +44,20 @@ def preprocessor(doc):
     pos_tagged_text = pos_tag(doc.split())
     lemmatizer = WordNetLemmatizer()
     return " ".join([lemmatizer.lemmatize(word, wordnet_map.get(pos[0], wordnet.NOUN)) for word, pos in pos_tagged_text])
+
+# LSTM Predicting
+def get_pred_output(text):
+    sequences = tokenizer.texts_to_sequences([text])
+    data = pad_sequences(sequences, maxlen=50)
+    predicted_val = model.predict(data)
+#     predicted_val = model.predict(data)    
+#     if predicted_val.max() > 0.5:
+#         output = 1
+#     else:
+#          output = 0
+    
+    return predicted_val
+
 
 def calculate_threshold_values(prob, y):
     '''
