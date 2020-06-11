@@ -86,4 +86,4 @@ def update_truth(n_clicks, article):
     # }}
     return s1, c1.round(3)*100
 if __name__ == '__main__':
-    app.run_server(debug=True, host='0.0.0.0', port=8899)
+    app.run_server(debug=True, host='0.0.0.0', port=8898)
