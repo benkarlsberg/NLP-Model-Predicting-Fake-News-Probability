@@ -1,8 +1,8 @@
-![](images/title_image.png)
-
 # Fake News Detector
 **Using Modern Machine Learning Techniques to Identify False Information in Political News Articles**<br>
 by Benjamin Karlsberg<br>
+
+![](images/title_image.png)
 
 ### Table of Contents
 
